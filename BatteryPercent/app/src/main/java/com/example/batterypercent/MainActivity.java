@@ -24,9 +24,11 @@ public class MainActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             int level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL,0);
             int scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE,100);
+
             int batteryPercent = (level*100)/scale;
             progressBar.setProgress(batteryPercent);
             int color = getColorForBatteryLevel(batteryPercent);
+
             getWindow().getDecorView().setBackgroundColor(color);
         }
     };
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         progressBar = findViewById(R.id.progressBar);
+
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(broadcastReceiver,intentFilter);
     }
